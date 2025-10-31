@@ -26,8 +26,84 @@ const Approach = () => {
   ];
 
   return (
-    <section id="approach" className="py-32" ref={ref}>
-      <div className="container mx-auto px-6">
+    <section id="approach" className="py-32 relative overflow-hidden" ref={ref}>
+      {/* 3D Geometric Background */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        {/* Rotating Hexagons */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={`hex-${i}`}
+            className="absolute border-2 border-primary/30"
+            style={{
+              width: 100 + i * 20,
+              height: 100 + i * 20,
+              left: `${15 + i * 12}%`,
+              top: `${20 + (i % 2) * 40}%`,
+              clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
+            }}
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 15 + i * 2,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+        ))}
+
+        {/* Orbiting Dots */}
+        {[...Array(12)].map((_, i) => (
+          <motion.div
+            key={`dot-${i}`}
+            className="absolute w-3 h-3 bg-accent rounded-full"
+            style={{
+              left: "50%",
+              top: "50%",
+            }}
+            animate={{
+              x: [0, Math.cos((i * 30 * Math.PI) / 180) * 200],
+              y: [0, Math.sin((i * 30 * Math.PI) / 180) * 200],
+              opacity: [0.2, 0.8, 0.2],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.3,
+            }}
+          />
+        ))}
+
+        {/* 3D Cube Grid */}
+        <div className="absolute right-10 top-20">
+          {[...Array(3)].map((_, row) =>
+            [...Array(3)].map((_, col) => (
+              <motion.div
+                key={`cube-${row}-${col}`}
+                className="absolute w-16 h-16 border border-primary/20"
+                style={{
+                  left: col * 70,
+                  top: row * 70,
+                  transformStyle: "preserve-3d",
+                }}
+                animate={{
+                  rotateX: [0, 360],
+                  rotateY: [0, 360],
+                }}
+                transition={{
+                  duration: 10 + row + col,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              />
+            ))
+          )}
+        </div>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto space-y-16">
           <motion.div
             className="text-center space-y-6"

@@ -41,16 +41,24 @@ const Navigation = () => {
           </motion.button>
 
           <div className="hidden md:flex items-center gap-8">
-            {["about", "portfolio", "approach", "contact"].map((section, index) => (
+            {[
+              { id: "about", label: "About" },
+              { id: "build", label: "Build" },
+              { id: "portfolio", label: "Portfolio" },
+              { id: "team", label: "Team" },
+              { id: "programs", label: "Programs" },
+              { id: "news", label: "News" },
+              { id: "contact", label: "Contact" },
+            ].map((section, index) => (
               <motion.button
-                key={section}
-                onClick={() => scrollToSection(section)}
+                key={section.id}
+                onClick={() => scrollToSection(section.id)}
                 className="text-sm uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors relative group"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
               >
-                {section}
+                {section.label}
                 <motion.span
                   className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
                 />
