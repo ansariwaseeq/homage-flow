@@ -76,6 +76,36 @@ const Build = () => {
               />
             ))}
 
+            {/* Stats Display */}
+            <motion.div
+              className="absolute -bottom-20 left-1/2 -translate-x-1/2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+            >
+              <div className="flex items-center gap-6 bg-card/80 backdrop-blur-sm border border-border/50 rounded-full px-8 py-4">
+                <motion.div 
+                  className="text-center"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <div className="text-4xl font-bold text-primary">21+</div>
+                  <div className="text-xs uppercase tracking-wider text-muted-foreground">
+                    Companies Built
+                  </div>
+                </motion.div>
+                <div className="h-12 w-px bg-border" />
+                <motion.div 
+                  className="text-center"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <div className="text-4xl font-bold text-primary">2016</div>
+                  <div className="text-xs uppercase tracking-wider text-muted-foreground">
+                    Since Year
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+
             {/* Bottom label */}
             <motion.div
               className="absolute bottom-0 left-0"
