@@ -17,7 +17,10 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden grain-texture">
+      {/* Mesh Gradient Background */}
+      <div className="absolute inset-0" style={{ background: 'var(--gradient-mesh)' }} />
+      
       {/* Animated Background with Parallax */}
       <div className="absolute inset-0 opacity-20">
         <motion.div
@@ -36,6 +39,31 @@ const Hero = () => {
           }}
           transition={{ type: "spring", stiffness: 30, damping: 30 }}
         />
+      </div>
+
+      {/* Particle System */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <motion.div
+            key={`particle-${i}`}
+            className="absolute w-1 h-1 bg-primary rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -100, -200],
+              opacity: [0, 0.8, 0],
+              scale: [0, 1.5, 0],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+              ease: "easeOut",
+            }}
+          />
+        ))}
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -75,18 +103,33 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.9 }}
             >
-              <button
+              <motion.button
                 onClick={() => document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" })}
-                className="group relative px-8 py-4 bg-primary text-background rounded-md overflow-hidden transition-all duration-300 uppercase tracking-wider text-sm font-medium"
+                className="group relative px-8 py-4 bg-primary text-background rounded-md overflow-hidden uppercase tracking-wider text-sm font-medium"
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "var(--shadow-glow-lg)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                <span className="relative z-10">View Portfolio</span>
+                <span className="relative z-10 flex items-center gap-2">
+                  View Portfolio
+                  <motion.span
+                    className="inline-block"
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    →
+                  </motion.span>
+                </span>
                 <motion.div
                   className="absolute inset-0 bg-accent"
                   initial={{ x: "-100%" }}
                   whileHover={{ x: 0 }}
                   transition={{ duration: 0.3 }}
                 />
-              </button>
+              </motion.button>
             </motion.div>
           </motion.div>
 

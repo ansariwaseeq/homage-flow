@@ -7,7 +7,36 @@ const Contact = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="contact" className="py-32 bg-secondary/30" ref={ref}>
+    <section id="contact" className="py-32 bg-secondary/30 relative overflow-hidden grain-texture" ref={ref}>
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/30 rounded-full blur-[100px]"
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-accent/20 rounded-full blur-[120px]"
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, -50, 0],
+            y: [0, -30, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -50,9 +79,11 @@ const Contact = () => {
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
                 whileHover={{
                   y: -8,
+                  scale: 1.02,
+                  boxShadow: "var(--shadow-card-hover)",
                   transition: { duration: 0.3 },
                 }}
-                className="bg-card border border-border rounded-lg p-6 text-center hover:border-primary transition-all duration-300 cursor-pointer group"
+                className="glass-card rounded-lg p-6 text-center hover:border-primary transition-all duration-300 cursor-pointer group relative overflow-hidden"
               >
                 <motion.div
                   className="text-3xl mb-3"
